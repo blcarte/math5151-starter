@@ -1,0 +1,43 @@
+{
+	"name": "MATH5151 Python Env",
+	"build": {
+		"context": "..",
+		"dockerfile": "../Dockerfile",
+		"target": "develop",
+		"args": {}
+	},
+	// Configure tool-specific properties.
+	"customizations": {
+		// Configure properties specific to VS Code.
+		"vscode": {
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+				"python.defaultInterpreterPath": "/opt/conda/bin/python",
+				"python.linting.enabled": true,
+				"python.linting.pylintEnabled": true,
+				"python.formatting.autopep8Path": "/opt/conda/bin/autopep8",
+				"python.formatting.yapfPath": "/opt/conda/bin/yapf",
+				"python.linting.flake8Path": "/opt/conda/bin/flake8",
+				"python.linting.pycodestylePath": "/opt/conda/bin/pycodestyle",
+				"python.linting.pydocstylePath": "/opt/conda/bin/pydocstyle",
+				"python.linting.pylintPath": "/opt/conda/bin/pylint"
+			},
+			// Add the IDs of extensions you want installed when the container is created.
+			"extensions": [
+				"ms-python.python",
+				"ms-python.vscode-pylance",
+				"streetsidesoftware.code-spell-checker"
+			]
+		}
+	},
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "mfmuser",
+	"workspaceMount": "source=${localWorkspaceFolder},target=/home/mfmuser/workspace,type=bind",
+	"workspaceFolder": "/home/mfmuser/workspace",
+	"runArgs": [
+		"--env-file=${localWorkspaceFolder}/.env", // any env variables we want to populate
+		"--network=host" // access to our host network (no need to forward ports)
+	],
+	// Install our package in dev mode so it's available to use
+	"postStartCommand": "pip install --user -e ./pkg"
+}
