@@ -9,7 +9,9 @@ ENV PATH="$PATH:/home/mfmuser/.local/bin"
 # container doesn't have a mounted volume
 COPY ./requirements.txt .
 RUN conda run -n base pip install --use-feature=in-tree-build -r requirements.txt \
-    && rm requirements.txt
+    && rm requirements.txt \
+    && apt-get update \
+    && apt-get install -y vim
 
 USER mfmuser
 RUN mkdir -p /home/mfmuser \
