@@ -1,2 +1,3 @@
 yfinance
 nasdaq-data-link
+ipympl
